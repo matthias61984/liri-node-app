@@ -2,6 +2,7 @@
   require("dotenv").config();
   var request = require('request');
   var moment = require('moment');
+  var fs = require('fs');
 
 // Required spotify magic
   var keys = require("./keys.js");
@@ -65,7 +66,16 @@
 
 // Do what it says command
   var doWhatItSays = function() {
-    console.log("YES");
+    fs.readFile('./random.txt', 'utf8', (err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      var dataSplit = data.split(",", 2);
+      randomCommand = dataSplit[0];
+      randomInput = dataSplit[1];
+      console.log(randomCommand);
+      console.log(randomInput);
+    });
   }
 
 // Depending on the command provided in argv, call appropriate function and pass it input as an argument
