@@ -6,9 +6,7 @@
   var keys = require("./keys.js")
   var Spotify = require('node-spotify-api');
   var spotify = new Spotify(keys.spotify);
-//  var omdb = new omdbApi(keys.omdb);
   
-
 // Store command input to decide which function to call
   var command = process.argv[2];
 // Slice off remaining indices in command line input, join together as input 
@@ -40,9 +38,21 @@
   var omdbIt = function(input) {
     request("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy", function(error, response, body) {
       if (!error && response.statusCode === 200) {
-        console.log("The movie's rating is: " + JSON.parse(body));
+        console.log("The movie's title is: " + JSON.parse(body).Title);
+        console.log("The movie was released in: " + JSON.parse(body).Year);
+        console.log("The movie's imdb rating is: " + JSON.parse(body).Ratings[0].Value);
+        console.log("The movie's rotten tomatoes rating is: " + JSON.parse(body).Ratings[1].Value);
+        console.log("The movie was produced in: " + JSON.parse(body).Country);
+        console.log("The movie's languages are: " + JSON.parse(body).Language);
+        console.log("The movie plot: " + JSON.parse(body).Plot);
+        console.log("The movie's notable actors: " + JSON.parse(body).Actors);
       }
     });
+  }
+
+// Do what it says command
+  var doWhatItSays = function() {
+    console.log("YES");
   }
 
 // Depending on the command provided in argv, call appropriate function and pass it input as an argument
